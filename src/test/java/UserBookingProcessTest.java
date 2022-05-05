@@ -2,8 +2,6 @@ import org.junit.Test;
 import pages.BookingProcessTestPages;
 import pages.LoginPage;
 import utils.BookableType;
-
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class UserBookingProcessTest extends BasicTest {

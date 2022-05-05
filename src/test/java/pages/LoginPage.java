@@ -31,7 +31,7 @@ public class LoginPage extends PageBase  {
         wait.until(ExpectedConditions.invisibilityOfAllElements(cookieAgreeButton));
     }
 
-    private boolean hasCookiesBanner() {
+    public boolean hasCookiesBanner() {
         return !driver.findElements(cookiesPopup).isEmpty();
     }
 
