@@ -25,11 +25,11 @@ public class LocalStorageManipulations {
         }
     }
 
-    public void initializeApp() {
+    public void initializeApp(Duration duration) {
         AtomicInteger tries = new AtomicInteger();
         wait.until((driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").equals("complete")));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
-        wait.pollingEvery(Duration.ofSeconds(2));
+        wait.pollingEvery(duration);
         wait.until(driver12 -> {
             // Just to show you how polling works
             System.out.println("Retrying at : " +new Date());
@@ -42,7 +42,7 @@ public class LocalStorageManipulations {
             String vuexGetItems = localStorage.getItem("vuex");
             tries.getAndIncrement();
             // finish interval cycle if initial local storage was changed
-            return vuexGetItems.equals(initialData) && tries.get() == 3;
+            return vuexGetItems.equals(initialData) && tries.get() == 5;
         });
     }
 }

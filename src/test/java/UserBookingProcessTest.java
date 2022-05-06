@@ -2,8 +2,6 @@ import org.junit.Test;
 import pages.BookingProcessTestPages;
 import utils.BookableType;
 
-import java.util.concurrent.TimeUnit;
-
 public class UserBookingProcessTest extends BasicTest {
     private BookingProcessTestPages bookingProcessTestPages;
 
@@ -27,9 +25,8 @@ public class UserBookingProcessTest extends BasicTest {
         bookingProcessTestPages.selectBookTimeFrom(3);
         bookingProcessTestPages.selectBookTimeTo(6);
         bookingProcessTestPages.searchBookablesInTimeRange(bookableType);
-        bookingProcessTestPages.goBack();
-        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
-        bookingProcessTestPages.goBack();
-        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
+        bookingProcessTestPages.selectLocation(1);
+        bookingProcessTestPages.hoverAndSelectBookable(1, bookableType);
+        bookingProcessTestPages.goToSelectBookDate();
     }
 }

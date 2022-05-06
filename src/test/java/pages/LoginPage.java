@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import utils.ApplyCookies;
 import utils.LocalStorageManipulations;
 
+import java.time.Duration;
+
 public class LoginPage extends PageBase  {
     private final By cookiesPopup = By.className("overlay__container");
     private final By cookiesSubmit = By.className("overlay__button");
@@ -28,7 +30,8 @@ public class LoginPage extends PageBase  {
     }
 
     public void initializeLocalStorage() {
-        new LocalStorageManipulations(driver, wait, false).initializeApp();
+        new LocalStorageManipulations(driver, wait, false)
+                .initializeApp(Duration.ofMillis(100));
     }
 
     public void cookieBannerTest() {

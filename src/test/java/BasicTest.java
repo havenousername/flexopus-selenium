@@ -26,8 +26,8 @@ public class BasicTest {
 
     @After
     public void close() {
-        if (driver != null) {
-            driver.quit();
-        }
+//        if (driver != null) {
+//            driver.quit();
+//        }
     }
 }

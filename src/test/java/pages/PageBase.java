@@ -32,6 +32,11 @@ public class PageBase {
         return this.driver.findElement(locator);
     }
 
+    protected WebElement waitVisibilityAndFindElement(WebDriver driver,  By locator) {
+        this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return driver.findElement(locator);
+    }
+
     protected String encodeValue(String value) throws UnsupportedEncodingException {
         return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
     }
