@@ -37,7 +37,7 @@ public class PageBase {
     }
 
     public void testTitle() {
-        final String title = "Flexopus - The Desk Sharing Solution";
+        final String title = "Flexopus - Die Desk Sharing Lösung";
         Assert.assertEquals(title, this.driver.findElement(By.tagName("title")).getAttribute("innerHTML"));
     }
 }

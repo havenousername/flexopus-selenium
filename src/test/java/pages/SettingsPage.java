@@ -29,7 +29,7 @@ public class SettingsPage extends PageBase {
         super(driver);
         LoginPage page = new LoginPage(driver);
         page.cookieBannerTest();
-        page.loginProcessTest(email, password);
+        page.loginProcessTest(email, password, false);
         wait.withTimeout(Duration.ofSeconds(1));
         this.driver.get(BASE_URL + "/settings");
         this.initialName = initialName;

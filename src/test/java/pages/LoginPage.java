@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.time.Duration;
+import utils.ApplyCookies;
+import utils.LocalStorageManipulations;
 
 public class LoginPage extends PageBase  {
     private final By cookiesPopup = By.className("overlay__container");
@@ -15,16 +15,25 @@ public class LoginPage extends PageBase  {
     private final By emailInput = By.xpath("/html/body/section/div/div[3]/div/div/div/div[2]/form/div[1]/p/input");
     private final By passwordInput = By.xpath("/html/body/section/div/div[3]/div/div/div/div[2]/form/div[2]/p/input");
     private final By submitButton  = By.xpath("//button[@type='submit']");
+    private final ApplyCookies createCookies;
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        goToLogin();
+        createCookies = new ApplyCookies(driver);
+    }
+
+    public void goToLogin() {
         this.driver.get(BASE_URL);
+    }
+
+    public void initializeLocalStorage() {
+        new LocalStorageManipulations(driver, wait, false).initializeApp();
     }
 
     public void cookieBannerTest() {
         Assert.assertTrue(hasCookiesBanner());
         WebElement cookieAgreeButton = this.waitVisibilityAndFindElement(cookiesSubmit);
-
         cookieAgreeButton.click();
 
 
@@ -35,7 +44,7 @@ public class LoginPage extends PageBase  {
         return !driver.findElements(cookiesPopup).isEmpty();
     }
 
-    public void loginProcessTest(String testEmail, String testPassword) {
+    public void loginProcessTest(String testEmail, String testPassword, Boolean save) {
         if (hasCookiesBanner()) {
             throw new RuntimeException("Please run cookiesBannerTestBefore");
         }
@@ -50,7 +59,10 @@ public class LoginPage extends PageBase  {
         submit.click();
 
         // main page
-        String redirectedUrl = "https://demo.flexopus.apicore.de/book/select-book-type";
-        wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.urlToBe(redirectedUrl));
+        String redirectedUrl = BASE_URL + "/book/select-book-type";
+        wait.until(ExpectedConditions.urlToBe(redirectedUrl));
+        if (save) {
+            createCookies.saveCookies();
+        }
     }
 }

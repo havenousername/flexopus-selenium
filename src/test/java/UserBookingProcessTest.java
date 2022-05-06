@@ -1,7 +1,7 @@
 import org.junit.Test;
 import pages.BookingProcessTestPages;
-import pages.LoginPage;
 import utils.BookableType;
+
 import java.util.concurrent.TimeUnit;
 
 public class UserBookingProcessTest extends BasicTest {
@@ -10,13 +10,8 @@ public class UserBookingProcessTest extends BasicTest {
     @Override
     public void setup() {
         super.setup();
-        LoginPage page = new LoginPage(driver);
-        page.testTitle();
-        page.cookieBannerTest();
-        String testEmail = "seleniumtest@gmail.com";
-        String testPassword = "SeleniumTesting01";
-        page.loginProcessTest(testEmail, testPassword);
         bookingProcessTestPages = new BookingProcessTestPages(driver);
+        bookingProcessTestPages.goToSelectBookDate();
     }
 
     @Test

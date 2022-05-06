@@ -1,12 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.ApplyCookies;
 import utils.BookableType;
 import utils.Calendars;
+import utils.LocalStorageManipulations;
 
 import java.io.UnsupportedEncodingException;
 
@@ -34,6 +33,14 @@ public class BookingProcessTestPages extends GoBackPageBase {
 
     public BookingProcessTestPages(WebDriver driver) {
         super(driver);
+        goToSelectBookDate();
+        new LocalStorageManipulations(driver, wait, true).initializeApp();
+        ApplyCookies applyCookies = new ApplyCookies(driver);
+        applyCookies.apply();
+    }
+
+    public void goToSelectBookDate() {
+        this.driver.get(BASE_URL + "/book/select-book-type");
     }
 
     public void goToSelectBookDate(BookableType bookableType) {

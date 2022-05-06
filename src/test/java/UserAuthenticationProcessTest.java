@@ -15,16 +15,18 @@ public class UserAuthenticationProcessTest extends BasicTest  {
     @Test
     public void testLogin() {
         LoginPage page = new LoginPage(driver);
+        page.initializeLocalStorage();
+        page.goToLogin();
         page.testTitle();
         page.cookieBannerTest();
-        page.loginProcessTest(testEmail, testPassword);
+        page.loginProcessTest(testEmail, testPassword, true);
     }
 
     @Test(expected = TimeoutException.class)
     public void testWrongEmailLogin() {
         LoginPage page = new LoginPage(driver);
         page.cookieBannerTest();
-        page.loginProcessTest(testEmail, testPasswordWrong);
+        page.loginProcessTest(testEmail, testPasswordWrong, false);
     }
 
     @Test
