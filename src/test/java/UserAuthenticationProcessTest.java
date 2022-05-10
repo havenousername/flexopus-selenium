@@ -1,10 +1,13 @@
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.TimeoutException;
 import pages.LoginPage;
 import pages.SettingsPage;
 
 import java.time.Duration;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserAuthenticationProcessTest extends BasicTest  {
     private final String testEmail = "seleniumtest@gmail.com";
     private final String testPassword = "SeleniumTesting01";
@@ -13,7 +16,8 @@ public class UserAuthenticationProcessTest extends BasicTest  {
     private final String testPasswordWrong = "SeleniumTesting0";
 
     @Test
-    public void testLogin() {
+    // test valid login first
+    public void testLogin_1() {
         LoginPage page = new LoginPage(driver);
         page.initializeLocalStorage();
         page.goToLogin();
@@ -23,14 +27,16 @@ public class UserAuthenticationProcessTest extends BasicTest  {
     }
 
     @Test(expected = TimeoutException.class)
-    public void testWrongEmailLogin() {
+    // test invalid login second
+    public void testLogin_2() {
         LoginPage page = new LoginPage(driver);
         page.cookieBannerTest();
         page.loginProcessTest(testEmail, testPasswordWrong, false);
     }
 
     @Test
-    public void testSettingsForm() {
+    // test settings page at last
+    public void testLogin_3() {
         SettingsPage page = new SettingsPage(driver, testEmail, testPassword);
         page.changeAvatar();
         page.changeProfileInfo(
