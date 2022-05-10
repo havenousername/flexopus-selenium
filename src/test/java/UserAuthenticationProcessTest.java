@@ -32,6 +32,7 @@ public class UserAuthenticationProcessTest extends BasicTest  {
     @Test
     public void testSettingsForm() {
         SettingsPage page = new SettingsPage(driver, testEmail, testPassword);
+        page.changeAvatar();
         page.changeProfileInfo(
                 "Test Name",
                 "About me",

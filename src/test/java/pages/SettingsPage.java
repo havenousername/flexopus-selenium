@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.io.File;
 import java.time.Duration;
 
 public class SettingsPage extends PageBase {
@@ -77,6 +78,25 @@ public class SettingsPage extends PageBase {
         wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.visibilityOfElementLocated(notificationTitle));
         wait.until(ExpectedConditions.textToBe(notificationTitle, "Erfolg"));
         wait.until(ExpectedConditions.textToBe(notificationText, "Profil erfolgreich gespeichert!"));
+    }
+
+    public void changeAvatar() {
+        By changeAvatarSelector = By.className("user-card__pen__icon");
+        WebElement changeAvatar = waitVisibilityAndFindElement(changeAvatarSelector);
+        changeAvatar.click();
+
+        WebElement inputFile = this.driver.findElement(
+                By.xpath("//*[@id=\"confirm-dialog\"]/div[2]/div/input")
+        );
+
+        File f = new File("src/test/assets/1.png");
+        inputFile.sendKeys(f.getAbsolutePath());
+
+        WebElement submit = waitVisibilityAndFindElement(
+                By.xpath("//*[@id=\"confirm-dialog\"]/div[3]/div/button[1]")
+        );
+
+        submit.click();
     }
 
     public void testLogout() {
